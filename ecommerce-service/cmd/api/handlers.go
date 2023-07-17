@@ -21,6 +21,7 @@ func (app *Config) Login(w http.ResponseWriter, r *http.Request) {
 	login, err := app.Models.Login.GetByUsername(requestPayload.Username)
 	if err != nil {
 		app.errorJSON(w, errors.New("invalid credential"), http.StatusBadRequest)
+		return
 	}
 
 	valid, err := login.PasswordMatches(requestPayload.Password)
@@ -31,7 +32,7 @@ func (app *Config) Login(w http.ResponseWriter, r *http.Request) {
 
 	payload := jsonResponse{
 		Error: false,
-		Message: fmt.Sprintf("Logged in user %s", login.User),
+		Message: fmt.Sprintf("Logged in user %s", login.Username),
 		Data: login,
 	}
 

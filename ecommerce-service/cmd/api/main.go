@@ -33,6 +33,7 @@ func main() {
 
 	app := Config{
 		DB: conn,
+		Models: data.New(conn),
 	}
 
 	srv := &http.Server{

@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"errors"
+	"log"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -12,7 +13,7 @@ import (
 const dbTimeout = time.Second * 3
 
 type Login struct {
-	User string `json:"user"`
+	Username string `json:"username"`
 	Password string `json:"passowrd"`
 }
 
@@ -36,17 +37,18 @@ func (l *Login) GetByUsername(username string) (*Login, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
 	defer cancel()
 
-	query := `select user, password from login where user = $1`
+	query := `select username, password from login where username = $1`
 
 	var login Login
 	row := db.QueryRowContext(ctx, query, username)
 
 	err := row.Scan(
-		&login.User,
+		&login.Username,
 		&login.Password,
 	)
 
 	if err != nil {
+		log.Println(err)
 		return nil, err
 	}
 
