@@ -39,3 +39,17 @@ func (app *Config) Login(w http.ResponseWriter, r *http.Request) {
 	app.writeJSON(w, http.StatusAccepted, payload)
 
 }
+
+func (app *Config) CheckUser(username, password string) (error) {
+	login, err := app.Models.Login.GetByUsername(username)
+	if err != nil {
+		return err
+	}
+
+	valid, err := login.PasswordMatches(password)
+	if err != nil || !valid {
+		return err
+	}
+
+	return nil
+}

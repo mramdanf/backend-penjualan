@@ -25,5 +25,17 @@ func (app *Config) routes() http.Handler {
 
 	mux.Post("/login", app.Login)
 
+	// mux.Route("/products", func(r chi.Router) {
+	// 	r.Use(app.LoggedInUserOnly)
+	// 	r.Post("/",)
+	// })
+
 	return mux
 }
+
+// func (app *Config) LoggedInUserOnly(next http.Handler) http.Handler {
+// 	return http.HandleFunc(func(w http.ResponseWriter, r *http.Request) {
+		
+// 		next.ServeHTTP(w, r)
+// 	})
+// }
