@@ -29,7 +29,3 @@ ALTER TABLE ONLY public.login
 INSERT INTO "public"."login"("username","password")
 VALUES
 (E'ramdan',E'$2a$12$1zGLuYDDNvATh4RA4avbKuheAMpb1svexSzrQm7up.bnpwQHs0jNe');
-
-
-
-
